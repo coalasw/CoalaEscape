@@ -37,7 +37,7 @@ room.keypad2.setWidth(36);
 room.locateObject(room.keypad2, 935, 250);
 room.keypad2.onClick = function() {
 	printMessage("문을 열 수 있는 비밀번호가 필요해.");
-	showKeypad(1, "7096" , function(){ // 키패드 1 - 숫자4자리
+	showKeypad("number", "7096" , function(){ // 키패드 1 - 숫자4자리
 		room.door.unlock();
 		printMessage("잠금장치가 열리는 소리가 들렸다.");
 	 });
@@ -55,7 +55,7 @@ room.door.onUnlock = function() {
 
 room.door.onClick = function(){
 	if(room.door.isOpened()){
-		game.clear();
+	game.clear();
 	} else {
 		printMessage("문은 잠겨있다.");
 	}
@@ -66,7 +66,7 @@ room.keypad1.setWidth(36);
 room.locateObject(room.keypad1, 374, 228);
 room.keypad1.onClick = function() {
 	printMessage("비밀번호를 찾으면 단서가 나올지도 몰라.");
-	showKeypad(2, "CHICK", function(){ // 키패드 2 - 알파벳 5자리
+	showKeypad("alphabet", "CHICK", function(){ // 키패드 2 - 알파벳 5자리
 		room.drawer.unlock();
 		printMessage("잠금장치가 열리는 소리가 들렸다.");
 	 });
@@ -93,7 +93,7 @@ room.bookshelf.move = 0;
 
 room.bookshelf.onDrag = function(direction){ // 드래그 모션 direction - Up, Down, Left, Right
 	if(direction == "Right" && room.bookshelf.move == 0){
-		game.printMessage("책장을 밀어버렸다!");
+		printMessage("책장을 밀어버렸다!");
 		room.bookshelf.moveX(200);
 		room.bookshelf.moveY(100);
 		room.bookshelf.move = 1;
@@ -143,7 +143,7 @@ room.drawer.onClick = function() {
 			room.key.show();
 		}
 	} else {
-		game.printMessage("열리지 않는다.");
+		printMessage("열리지 않는다.");
 	}
 }
 
@@ -151,11 +151,11 @@ room.safe = room.createObject("safe", "safe2-se-close.png");
 room.safe.setWidth(210);
 room.locateObject(room.safe, 170, 465);
 room.safe.onClick = function(){	
-	if(game.getHandsItemName()=="key"){ // 손에 들고 있는 아이템 이름 가져 옴
+	if(game.getHandItem()==room.key){ // 손에 들고 있는 아이템 이름 가져 옴
 		if(room.safe.isClosed()){
 			room.safe.setSprite("safe2-se-open.png");
 			room.post.show();
-			room.safe.open();
+		room.safe.open();
 		} else if (room.safe.isOpened()){
 			room.safe.setSprite("safe2-se-close.png");
 			room.post.hide();
@@ -171,7 +171,7 @@ room.box2.setWidth(110);
 room.locateObject(room.box2, 315, 325);
 
 room.box2.onClick = function() {
-	game.printMessage("별거 없는데..?");
+	printMessage("별거 없는데..?");
 	if(room.box2.isOpened()){
 		room.box2.close();	
 	} else if (room.box2.isClosed()){
@@ -209,7 +209,7 @@ room.keypad3.setWidth(36);
 room.locateObject(room.keypad3, 374, 70);
 room.keypad3.onClick = function() {
 	printMessage("올해는?");
-	showKeypad(3, "2019", function(){ // 키패드 3 - 전화기패드 숫자 여러자리
+	showKeypad("telephone", "2019", function(){ // 키패드 3 - 전화기패드 숫자 여러자리
 		printMessage("정답!!");
 	 });
 }
