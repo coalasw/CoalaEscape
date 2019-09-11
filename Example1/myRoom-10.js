@@ -78,5 +78,82 @@ room2.door.onClick = function(){
 	game.move(room) // room으로 이동
 }
 
+room2.cupboard = room2.createObject("cupboard", "찬장-2-닫힘.png") // 찬장 생성
+room2.key = room2.createObject("key", "열쇠.png") // 열쇠 생성
+
+//크기 조절
+room2.cupboard.setWidth(250)
+room2.key.setWidth(45)
+
+//배치
+room2.locateObject(room2.cupboard, 800, 323)
+room2.locateObject(room2.key, 745, 315)
+
+room2.key.hide() // key 숨기기
+
+room2.cupboard.onClick = function() { // 클릭했을 때
+	if(room2.cupboard.isOpened()) { // Opened 상태인 경우
+		room2.cupboard.close() // close
+	} else if(room2.cupboard.isClosed()) { //Closed 상태인 경우
+		room2.cupboard.open() // open
+	} else { 
+		// do nothing
+	}
+}
+
+room2.cupboard.onOpen = function() {
+	room2.cupboard.setSprite("찬장-2-열림.png") // 열린 그림으로 변경
+	room2.key.show() // key 보이기
+}
+
+room2.cupboard.onClose = function() {
+	room2.cupboard.setSprite("찬장-2-닫힘.png") // 닫힌 그림으로 변경
+	room2.key.hide() // key 숨기기
+}
+
+room.head = room.createObject("head", "드라이버비트.png")
+room.handle = room.createObject("handle", "드라이버손잡이.png")
+room.screwdriver = room.createObject("screwdriver", "드라이버.png")
+
+room.head.setWidth(50)
+room.handle.setWidth(50)
+room.screwdriver.hide() // 조합 될 아이템 숨기기
+
+room.locateObject(room.head, 500, 650)
+room.locateObject(room.handle, 600, 650)
+
+game.makeCombination(room.head, room.handle, room.screwdriver) // 헤드 + 손잡이 = 드라이버
+
+room.head.onClick = function(){
+	room.head.pick()
+}
+room.handle.onClick = function(){
+	room.handle.pick()
+}
+
+room.shelf.onClick = function() {
+	if(game.getHandItem() == room.screwdriver) {
+		printMessage("나사를 단단히 조였다.")
+	} else {
+		printMessage("나사가 헐거워져있다.")
+	}
+}
+
+roomLight = true
+
+room.remote = room.createObject("remote", "리모컨.png")
+room.remote.setWidth(70)
+room.locateObject(room.remote, 800, 550)
+
+room.remote.onClick = function() {
+	if(roomLight) {
+		room.setRoomLight(0.5)
+		roomLight = false
+	} else {
+		room.setRoomLight(1)
+		roomLight = true
+	}
+}
+
 game.start(room) // 게임시작
 printMessage("방탈출에 오신 것을 환영합니다!") // 환영 메시지 출력

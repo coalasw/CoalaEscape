@@ -78,5 +78,38 @@ room2.door.onClick = function(){
 	game.move(room) // room으로 이동
 }
 
+room2.cupboard = room2.createObject("cupboard", "찬장-2-닫힘.png") // 찬장 생성
+room2.key = room2.createObject("key", "열쇠.png") // 열쇠 생성
+
+//크기 조절
+room2.cupboard.setWidth(250)
+room2.key.setWidth(45)
+
+//배치
+room2.locateObject(room2.cupboard, 800, 323)
+room2.locateObject(room2.key, 745, 315)
+
+room2.key.hide() // key 숨기기
+
+room2.cupboard.onClick = function() { // 클릭했을 때
+	if(room2.cupboard.isOpened()) { // Opened 상태인 경우
+		room2.cupboard.close() // close
+	} else if(room2.cupboard.isClosed()) { //Closed 상태인 경우
+		room2.cupboard.open() // open
+	} else { 
+		// do nothing
+	}
+}
+
+room2.cupboard.onOpen = function() {
+	room2.cupboard.setSprite("찬장-2-열림.png") // 열린 그림으로 변경
+	room2.key.show() // key 보이기
+}
+
+room2.cupboard.onClose = function() {
+	room2.cupboard.setSprite("찬장-2-닫힘.png") // 닫힌 그림으로 변경
+	room2.key.hide() // key 숨기기
+}
+
 game.start(room) // 게임시작
 printMessage("방탈출에 오신 것을 환영합니다!") // 환영 메시지 출력
