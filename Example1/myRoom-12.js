@@ -66,7 +66,8 @@ room.mac = room.createObject("mac", "맥-우.png") // 맥 생성
 room.mac.setWidth(130)
 room.locateObject(room.mac, 560, 270)
 room.mac.onClick = function() {
-	showVideoPlayer("sample.mp4") // 비디오 재생
+	//showVideoPlayer("sample.mp4") // 비디오 재생
+	playYoutube("https://www.youtube.com/watch?v=761ae_KDg_Q");
 }
 
 room2.door = room2.createObject("door", "문-오른쪽-열림.png") // 문 생성
